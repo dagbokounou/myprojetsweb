@@ -20,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
                 'city',
                 'state',
                 'address',
-                'phone',
+                'phone'
             ),
         }),
     )
