@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+import os
+from dotenv import load_dotenv
+
+
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,6 +70,59 @@ CORS_ALLOWED_ORIGINS = [
 
 
 ]
+
+
+REST_FRAMEWORK = {
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+    
+}
+
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60)
+    
+    }
+
+FLUTTERWAVE_SECRET_KEY="FLWSECK_TEST-6afcc0db16ddc12bdf3f20034d6cd4d5-X"
+
+
+
+
+PAYPAL_CLIENT_ID ='AW58HGLkeOXMi3H54kk-JMyPaZe3tEUiuTddxyG8RX58_cgX8I7ZEhbzaDOrvM6q-uW9ebA4zvTrkW4B'
+
+PAYPAL_CLIENT_SECRET= 'EBpqDPODD9IgoxUz5g8mhfA_dVB9xLJlNFb1OJobv30ZWiFex_Hq_r4d500WFUTnAQ7pQb30pij1hZBP'
+
+PAYPAL_MODE='sandbox'
+
+
+
+
+REACT_BASE_URL = os.getenv("REACT_BASE_URL","http://localhost:5173")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ROOT_URLCONF = 'shoppit.urls'
 
@@ -115,9 +177,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
@@ -128,6 +190,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_STORAGE= "whitenoise.storage.CompressedManifestStaticFilesStorage"
+  
 MEDIA_URL='img/'
 MEDIA_ROOT=BASE_DIR/'media'
 # Default primary key field type
